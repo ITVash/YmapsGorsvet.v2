@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux';
+
 import { coupActions, oporaActions, svetActions } from '../../redux/actions';
 import { Ymaps, SearchBox } from '../../component';
+
 const Maps = props => {
-  const { coup, fetchCoup, getCurrentID, fetchUppCoup, opora, fetchOpora, getOporaID, fetchUppOpora, svet, fetchSvet } = props;
+  const { coup, fetchCoup, getCurrentID, fetchUppCoup, opora, fetchOpora, getOporaID, fetchUppOpora, svet, fetchSvet, fetchUppSvet } = props;
   const [ filterCoup, setFilterCoup ] = useState(Array.from(coup));
   const [ filterOpora, setFilterOpora ] = useState(Array.from(opora));
   const [ searchValue, setSearchValue ] = useState('');
@@ -25,13 +27,14 @@ const Maps = props => {
     fetchCoup();
     fetchOpora();
   }, [ fetchCoup, fetchOpora ]);
-
+  //<InfoBox className="info-box" />
   return (
     <>
       <SearchBox 
         onSearch={ onSearch } 
         SearchValue={ searchValue }
       />
+      
       <Ymaps
         coup={ filterCoup }
         onSelectCoup={ getCurrentID }
@@ -45,6 +48,7 @@ const Maps = props => {
         setSelectOpora={ setSelectOpora }
         svet={ svet }
         fetchSvet={ fetchSvet }
+        fetchUppSvet={ fetchUppSvet }
       />
     </>
   )

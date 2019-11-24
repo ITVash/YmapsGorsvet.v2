@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Icon, Input, DatePicker, Button } from 'antd';
 import moment from 'moment';
-import { InfoBox } from '../../component';
+//import { InfoBox } from '../../component';
 
 import './style.scss';
 const InfoOpora = props => {
@@ -20,21 +20,14 @@ const InfoOpora = props => {
 
   window.valuesOpora = props.items;
   window.editValuesOpora = props.editItems;
-  const { items, editItems, uppOpora, onSelectCoup, svet } = props;
+  const { items, editItems, uppOpora, onSelectCoup, svet, fetchUppSvet } = props;
   const [ svets, setSvets ] = useState(svet);
   
   useEffect(() => {
     if ( svet.length )
       setSvets(svet);
   }, [ svet ]);
-  const editSvet = (id, data) => {
-    svets.find(item => {
-      if (item.id === id) {
-        return  Object.assign(item, data);
-      }
-      return item;
-    });
-  };
+
   console.log('svet', svets);
   //console.log('infoCoup', coup);
   return (
@@ -63,22 +56,34 @@ const InfoOpora = props => {
             <div className="info-opora__content_opora-item">
               <label htmlFor="">Поставщик</label>
               <Input name="sugo" 
-                value={item.postavchik_Svet} onChange={e => setSvets({...svets,postavchik_Svet : e.target.value})} />
+                value={item.postavchik_Svet} onChange={e => 
+                  /*setSvets({...svets, postavchik_Svet : e.target.value})*/
+                  setSvets(svets.map((itemz, idx) => idx !== id ? itemz : {...itemz, postavchik_Svet : e.target.value}))
+                } />
             </div>
             <div className="info-opora__content_opora-item">
               <label htmlFor="">Светильник</label>
               <Input name="shetchik_name" 
-                value={item.svetilnik } onChange={e => setSvets({...item, svetilnik : e.target.value})} />
+                value={item.svetilnik } onChange={e => 
+                  //setSvets({...item, svetilnik : e.target.value})
+                  setSvets(svets.map((itemz, idx) => idx !== id ? itemz : {...itemz, svetilnik : e.target.value}))
+                } />
             </div>
             <div className="info-opora__content_opora-item">
               <label htmlFor="">Дата установки</label>
               <DatePicker className='date' defaultValue={moment(item.date_Svet, dateFormat)} format={dateFormat}
-                onChange={(date, newDate)=> {setSvets({...item, date_Svet : newDate})}} />
+                onChange={(date, newDate)=> {
+                  //setSvets({...item, date_Svet : newDate})
+                  setSvets(svets.map((itemz, idx) => idx !== id ? itemz : {...itemz, date_Svet : newDate}))
+                }} />
             </div>
             <div className="info-opora__content_opora-item">
               <label htmlFor="">Срок службы</label>
               <Input value={item.life_Time_Svet}
-                onChange={ e => {setSvets({...item, life_Time_Svet : e.target.value})}} />
+                onChange={ e => {
+                  //setSvets({...item, life_Time_Svet : e.target.value})
+                  setSvets(svets.map((itemz, idx) => idx !== id ? itemz : {...itemz, life_Time_Svet : e.target.value}))
+                }} />
             </div>
           </div>
           <center><h3>Лампа №{ id + 1 }</h3></center>
@@ -86,22 +91,34 @@ const InfoOpora = props => {
             <div className="info-opora__content_opora-item">
               <label htmlFor="">Поставщик</label>
               <Input value={item.postavchik_Lamp}
-                onChange={ e => {editItems({...items, postavchik_Lamp : e.target.value})}} />
+                onChange={ e => {
+                  //editItems({...items, postavchik_Lamp : e.target.value})
+                  setSvets(svets.map((itemz, idx) => idx !== id ? itemz : {...itemz, postavchik_Lamp : e.target.value}))
+                }} />
             </div>
             <div className="info-opora__content_opora-item">
               <label htmlFor="">Лампа</label>
               <Input value={item.Lampa} 
-                onChange={ e => {editItems({...items, Lampa : e.target.value})}} />
+                onChange={ e => {
+                  //editItems({...items, Lampa : e.target.value})
+                  setSvets(svets.map((itemz, idx) => idx !== id ? itemz : {...itemz, Lampa : e.target.value}))
+                }} />
             </div>
             <div className="info-opora__content_opora-item">
               <label htmlFor="">Дата установки</label>
               <DatePicker className='date' defaultValue={moment(item.date_Lamp, dateFormat)} format={dateFormat}
-                onChange={(date, newDate)=> {editItems({...items, date_Lamp : newDate})}} />
+                onChange={(date, newDate)=> {
+                  //editItems({...items, date_Lamp : newDate})
+                  setSvets(svets.map((itemz, idx) => idx !== id ? itemz : {...itemz, date_Lamp : newDate}))
+                }} />
             </div>
             <div className="info-opora__content_opora-item">
               <label htmlFor="">Срок службы</label>
               <Input value={item.life_Time_Lamp}
-                onChange={ e => {editItems({...items, life_Time_Lamp : e.target.value})}} />
+                onChange={ e => {
+                  //editItems({...items, life_Time_Lamp : e.target.value})
+                  setSvets(svets.map((itemz, idx) => idx !== id ? itemz : {...itemz, life_Time_Lamp : e.target.value}))
+                }} />
             </div>
           </div>
         </div>))}
@@ -152,6 +169,7 @@ const InfoOpora = props => {
           <div className="info-opora__content_opora-item full">
             <Button type="primary" block onClick={ () => {
               uppOpora(items);
+              fetchUppSvet(svets);
               //editItems({});
               const wind = document.querySelector(".info-opora");
               wind.classList.remove("open");

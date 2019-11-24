@@ -26,7 +26,7 @@ const InfoBox = (props) => {
           const wind = document.querySelector(".info-box");
           wind.classList.remove("open");
         }
-      }><Icon type="close" /></span>      
+      }><Icon type="close" /></span>
       <div className="info-box__title">
         <h3>{ items.title }</h3>
         <span>{ area[items.areaID] }</span>

@@ -22,11 +22,11 @@ const actions = {
       dispatch(actions.getSvet(data));
     });
   },
-  fetchUppSvet: coupData => ( dispatch, getState ) => {
-    const { coup } = getState();
-    const { currentID } = coup;
-    console.log('data', coupData);
-    svets.uppSvet(currentID, coupData)
+  fetchUppSvet: svetData => ( dispatch, getState ) => {
+    const { opora } = getState();
+    const { currentID } = opora;
+    console.log('data', svetData);
+    svets.uppSvet(currentID, svetData)
     .then(({data}) => {
       dispatch(actions.getUppSvet(data));
     });

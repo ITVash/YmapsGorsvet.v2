@@ -1,6 +1,8 @@
 import React from 'react';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
-import { InfoBox, InfoOpora } from '../../component';
+
+//import { InfoOpora } from '../../component';
+import { InfoBox } from '../../container';
 
 import './style.scss';
 const mapData = {
@@ -8,7 +10,24 @@ const mapData = {
   zoom: 12,
 };
 const Ymaps = props => {
-  const { coup, onSelectCoup, uppCoup, setCoup, setSelectCoup, opora, onSelectOpora, uppOpora, setOpora, setSelectOpora, fetchSvet, svet } = props;
+  const { coup, 
+    onSelectCoup, 
+    uppCoup, 
+    setCoup, 
+    setSelectCoup, 
+    opora, 
+    onSelectOpora, 
+    uppOpora, 
+    setOpora, 
+    setSelectOpora, 
+    fetchSvet, 
+    svet,
+    fetchUppSvet } = props;
+    const func = val => {
+      if (val === true || val === 1) {
+        return 1;
+      } else if (val === false || val === 0) return 0;
+    };
   return (
     <YMaps>
       <Map defaultState={mapData} width="100%" height="100vh">
@@ -24,14 +43,9 @@ const Ymaps = props => {
             hintContent: `${item.title}`,
           }}
           options={{
-            // Options. You must specify this type of layout.
             iconLayout: 'default#image',
-            // Custom image for the placemark icon.
-            iconImageHref: `./img/${item.areaID}_control_${item.func}.png`,
-            // The size of the placemark.
+            iconImageHref: `./img/${item.areaID}_control_${func(item.func)}.png`,
             iconImageSize: [20, 20],
-            // The offset of the upper left corner of the icon relative
-            // to its "tail" (the anchor point).
             iconImageOffset: [0, 0],
           }}
         />)}
@@ -50,34 +64,32 @@ const Ymaps = props => {
             hintContent: `${item.title}`,
           }}
           options={{
-            // Options. You must specify this type of layout.
             iconLayout: 'default#image',
-            // Custom image for the placemark icon.
-            iconImageHref: item.funcCoup === 1 ? `./img/${item.areaID}_opora_${item.func}.png` : `./img/${item.areaID}_opora_0.png`,
-            // The size of the placemark.
+            iconImageHref: item.funcCoup === 1 ? `./img/${item.areaID}_opora_${func(item.func)}.png` : `./img/${item.areaID}_opora_0.png`,
             iconImageSize: [10, 10],
-            // The offset of the upper left corner of the icon relative
-            // to its "tail" (the anchor point).
             iconImageOffset: [0, -15],
           }}
         />
         )}
         {setCoup && (
           <InfoBox
+            className="info-box"
             items={ setCoup }
             editItems={ setSelectCoup }
-            uppCoup={ uppCoup } />
+            uppData={ uppCoup } />
         )}
         {setOpora && (
-          <InfoOpora 
+          <InfoBox
+          className="info-opora"
             items={ setOpora }
             editItems={ setSelectOpora }
-            uppOpora={ uppOpora }
+            uppData={ uppOpora }
             svet={ svet }
             //setCoup={ setSelectCoup }
             //coup={ setCoup }
             //uppCoup={ uppCoup }
             onSelectCoup={ onSelectCoup }
+            fetchUppSvet={ fetchUppSvet }
           />
         )}
       </Map>
