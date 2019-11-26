@@ -22,7 +22,8 @@ const Ymaps = props => {
     setSelectOpora, 
     fetchSvet, 
     svet,
-    fetchUppSvet } = props;
+    fetchUppSvet,
+    fetchAddSvet, deleteSvet } = props;
     const func = val => {
       if (val === true || val === 1) {
         return 1;
@@ -84,12 +85,14 @@ const Ymaps = props => {
             items={ setOpora }
             editItems={ setSelectOpora }
             uppData={ uppOpora }
-            svet={ svet }
+            svets={ svet }
             //setCoup={ setSelectCoup }
             //coup={ setCoup }
             //uppCoup={ uppCoup }
             onSelectCoup={ onSelectCoup }
             fetchUppSvet={ fetchUppSvet }
+            fetchAddSvet={ fetchAddSvet }
+            deleteSvet={ deleteSvet }
           />
         )}
       </Map>

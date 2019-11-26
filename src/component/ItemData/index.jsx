@@ -11,7 +11,7 @@ const ItemData = ({ className, label, base, editBase, column, value }) => {
     <div className={classNames(`${className}__content_box-item`)}>
       <label htmlFor="">{ label }</label>
       <DatePicker className='date' defaultValue={moment(value, dateFormat)} format={dateFormat}
-        onChange={(date, newDate)=> {editBase({...base, column : newDate})}} />
+        onChange={(date, newDate)=> {editBase({...base, [column] : newDate})}} />
     </div>
   )
 }

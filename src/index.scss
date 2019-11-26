@@ -51,6 +51,11 @@ code {
   transform: translateY(100%);
   opacity: 0;
   &__content {
+    .add-svet {
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+    }
     margin-top: 20px;
     h3 {
       font-size: 18px;

@@ -5,17 +5,18 @@ import { coupActions, oporaActions, svetActions } from '../../redux/actions';
 import { Ymaps, SearchBox } from '../../component';
 
 const Maps = props => {
-  const { coup, fetchCoup, getCurrentID, fetchUppCoup, opora, fetchOpora, getOporaID, fetchUppOpora, svet, fetchSvet, fetchUppSvet } = props;
+  const { coup, fetchCoup, getCurrentID, fetchUppCoup, opora, fetchOpora, getOporaID, fetchUppOpora, svet, fetchSvet, fetchUppSvet, fetchAddSvet, deleteSvet } = props;
   const [ filterCoup, setFilterCoup ] = useState(Array.from(coup));
   const [ filterOpora, setFilterOpora ] = useState(Array.from(opora));
   const [ searchValue, setSearchValue ] = useState('');
   const [ setCoup, setSelectCoup ] = useState(null);
   const [ setOpora, setSelectOpora ] = useState(null);
-  const onSearch = (value = '') =>{
+  const onSearch = (value = '') => {
     setFilterCoup(coup.filter(item => item.title.toLowerCase().indexOf(value.toLowerCase()) >= 0 ));
     setFilterOpora(opora.filter(item => item.title.toLowerCase().indexOf(value.toLowerCase()) >= 0 ||
-      opora.filter(item => item.coupTitle.toLowerCase().indexOf(value.toLowerCase()) >= 0)
-    ));
+    item.coupTitle.toLowerCase().indexOf(value.toLowerCase()) >= 0,
+      //opora.filter(item => item.coupTitle.toLowerCase().indexOf(value.toLowerCase()) >= 0)
+    ),);
     setSearchValue(value);
   };
   useEffect(() => {
@@ -49,6 +50,8 @@ const Maps = props => {
         svet={ svet }
         fetchSvet={ fetchSvet }
         fetchUppSvet={ fetchUppSvet }
+        fetchAddSvet={ fetchAddSvet }
+        deleteSvet={ deleteSvet }
       />
     </>
   )

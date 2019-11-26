@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icon } from 'antd';
 import classNames from 'classnames';
 
 import { TitleBox, ItemInput, Butt, ButtPr, ItemData, ItemText, Func } from '../../component';
 
 const InfoBox = props => {
-  const { className, items, editItems, uppData } = props;
+  const { className, items, editItems, uppData, svets, fetchUppSvet, fetchAddSvet, deleteSvet } = props;
   const area = {
     1: "Ворошиловский район",
     2: "Киевский район",
@@ -17,6 +17,30 @@ const InfoBox = props => {
     8: "Буденовский район",
     9: "Пролетарский райое"
   };
+  const [ svet, setSvet ] = useState(svets);
+  const addObj = obj => {
+    fetchAddSvet(obj);
+  };
+  const removeSvet = id => {
+    if (window.confirm("Вы действительно хотите удалить Светильник?")) {
+      deleteSvet(id);
+    }
+  };
+  const uppSvet = (id, obj) => {
+    const upp = svet.map((item, idx) => {
+      if ( idx === id ) {
+        item = obj;
+      }
+      return item;
+    });
+    setSvet(upp);
+  };
+  useEffect(() => {
+    if (svets && svets.length) {
+      setSvet(svets);
+    }
+  }, [ svets ]);
+  console.log('svet', svet);
   return (
     <div className={classNames(className)}>
       <span className={classNames(`${className}__close`)} onClick={
@@ -84,6 +108,40 @@ const InfoBox = props => {
       ) : (
         <><TitleBox className={ className } title={items.title} area={area[items.areaID]} />
         <div className={classNames(`${className}__content`)}>
+          <span className="add-svet"
+            onClick = { () => {
+              const obj = [{
+                oporaID: items.id,
+                postavchik_Svet: "Поставщик",
+                postavchik_Lamp: "Поставщик",
+                life_Time_Lamp: "Срок службы",
+                Lampa: "Лампа",
+                svetilnik: "Светильник",
+                life_Time_Svet: "Срок службы",
+                date_Svet: "01.01.2019",
+                date_Lamp: "01.01.2019",
+              }];
+              addObj(obj);
+            }}
+          >+ Добавить Светильник</span>
+          {svet && svet.map( (item, id) =>
+            <div key={ id }>
+              <center><h3>Светильник №{ id + 1 } <Icon type="delete" style={{ fontSize: '16px', color: '#08c', cursor:'pointer' }} onClick={ () => removeSvet(item.id) } /></h3></center>
+              <div className={classNames(`${className}__content_box`)}>
+                <ItemInput className={ className } label="Поставщик" base={ item } editBase={ e => uppSvet(id, e) } column='postavchik_Svet' value={ item.postavchik_Svet } />
+                <ItemInput className={ className } label="Светильник" base={ item } editBase={ e => uppSvet(id, e) } column='svetilnik' value={ item.svetilnik } />
+                <ItemData className={ className } label="Дата установки" base={ item } editBase={ e => uppSvet(id, e) } column='date_Svet' value={ item.date_Svet ? (item.date_Svet) : '01.01.2019' } />
+                <ItemInput className={ className } label="Срок службы" base={ item } editBase={ e => uppSvet(id, e) } column='life_Time_Svet' value={ item.life_Time_Svet } />
+              </div>
+              <center><h3>Лампа №{ id + 1 }</h3></center>
+              <div className={classNames(`${className}__content_box`)}>
+                <ItemInput className={ className } label="Поставщик" base={ item } editBase={ e => uppSvet(id, e) } column='postavchik_Lamp' value={ item.postavchik_Lamp } />
+                <ItemInput className={ className } label="Лампа" base={ item } editBase={ e => uppSvet(id, e) } column='Lampa' value={ item.Lampa } />
+                <ItemData className={ className } label="Дата установки" base={ item } editBase={ e => uppSvet(id, e) } column='date_Lamp' value={ item.date_Lamp ? (item.date_Lamp) : '01.01.2019' } />
+                <ItemInput className={ className } label="Срок службы" base={ item } editBase={ e => uppSvet(id, e) } column='life_Time_Lamp' value={ item.life_Time_Lamp } />
+              </div>
+            </div>
+          )}
           <center><h3>Кронштейн</h3></center>
           <div className={classNames(`${className}__content_box kont`)}>
             <ItemInput className={ className } label="Поставщик" base={ items } value={ items.postavchik_breacket } editBase={ editItems } column='postavchik_breacket' />
@@ -98,7 +156,7 @@ const InfoBox = props => {
           </div>
           <center><h3>Состояние</h3></center>
           <div className={classNames(`${className}__content_box`)}>
-            <Func className={ className } base={ items } editBase={ editItems } column='func' value={ items.func } uppData={ uppData } />
+            <Func className={ className } base={ items } editBase={ editItems } column='func' value={ items.func } uppData={ uppData } uppSvet={ fetchUppSvet } svet={ svet } />
           </div>
         </div></> 
       )}

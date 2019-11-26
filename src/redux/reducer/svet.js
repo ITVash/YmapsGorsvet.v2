@@ -10,6 +10,11 @@ export default (state = initialState, {type, payload}) => {
         ...state,
         items: payload
       };
+      case 'DELETE_SVET':
+        return {
+          ...state,
+          items: state.items.filter(item => item.id !== payload)
+        };
     case 'ADD_SVET':
       return {
         ...state,
