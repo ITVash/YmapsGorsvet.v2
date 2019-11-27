@@ -17,6 +17,12 @@ const actions = {
     type: 'GET_OPORA_ID',
     payload: id
   }),
+  fetchAddOpora: oporaData => dispatch => {
+    oporas.addOpora(oporaData)
+    .then(({ data }) => {
+      dispatch(actions.addOpora(data));
+    });
+  },
   fetchOpora: () => dispatch => {
     oporas.getAll().then(({ data }) => {
       dispatch(actions.getOpora(data));

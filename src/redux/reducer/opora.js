@@ -14,7 +14,7 @@ export default (state = initialState, {type, payload}) => {
       return {
         ...state,
         items: [
-          ...state.items,
+          //...state.items,
           payload
         ]
       };

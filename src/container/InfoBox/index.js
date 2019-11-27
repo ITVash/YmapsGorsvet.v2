@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from 'antd';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
+import { coupActions } from '../../redux/actions';
 import { TitleBox, ItemInput, Butt, ButtPr, ItemData, ItemText, Func } from '../../component';
 
 const InfoBox = props => {
-  const { className, items, editItems, uppData, svets, fetchUppSvet, fetchAddSvet, deleteSvet } = props;
+  const { className, items, editItems, uppData, svets, fetchUppSvet, fetchAddSvet, deleteSvet, edit, type, fetchCoup, coup } = props;
   const area = {
     1: "Ворошиловский район",
     2: "Киевский район",
@@ -17,9 +19,21 @@ const InfoBox = props => {
     8: "Буденовский район",
     9: "Пролетарский райое"
   };
+  console.log('Что дает редактирование?', edit);
   const [ svet, setSvet ] = useState(svets);
   const addObj = obj => {
     fetchAddSvet(obj);
+  };
+  const uppDatas = obj => {
+    uppData(obj);
+    if ( edit ) {
+      console.log('Режим редактирования объектов');
+      //uppData(obj);
+      type(null);
+      editItems(null);
+    } else {
+      uppData(obj);
+    }
   };
   const removeSvet = id => {
     if (window.confirm("Вы действительно хотите удалить Светильник?")) {
@@ -40,6 +54,9 @@ const InfoBox = props => {
       setSvet(svets);
     }
   }, [ svets ]);
+  useEffect(() => {
+    fetchCoup()
+  }, [ fetchCoup ]);
   console.log('svet', svet);
   return (
     <div className={classNames(className)}>
@@ -50,7 +67,7 @@ const InfoBox = props => {
         }
       }><Icon type="close" /></span>
       {className === 'info-box' ? ( 
-        <><TitleBox className={ className } title={items.title} area={area[items.areaID]} />
+        <><TitleBox edit={ edit } className={ className } title={[ items.title ]} area={area[items.areaID]} base={ items } editBase={ editItems } column={['title', 'areaID']} />
         <div className={classNames(`${className}__content`)}>
           <center><h3>Комплектация</h3></center>
           <div className={classNames(`${className}__content_box kont`)}>
@@ -102,11 +119,11 @@ const InfoBox = props => {
           </div>
           <center><h3>Состояние</h3></center>
           <div className={classNames(`${className}__content_box`)}>
-            <Func className={ className } base={ items } editBase={ editItems } column='func' value={ items.func } uppData={ uppData } />
+            <Func className={ className } base={ items } editBase={ editItems } column='func' value={ items.func } uppData={ uppDatas } />
           </div>
         </div></>
       ) : (
-        <><TitleBox className={ className } title={items.title} area={area[items.areaID]} />
+        <><TitleBox edit={ edit } className={ className } title={[items.title, items.coupTitle]} area={area[items.areaID]} base={ items } editBase={ editItems } column={['title', 'areaID', 'coupID']} coup={ coup } />
         <div className={classNames(`${className}__content`)}>
           <span className="add-svet"
             onClick = { () => {
@@ -149,6 +166,10 @@ const InfoBox = props => {
             <ItemData className={ className } label="Дата установки" base={ items } editBase={ editItems } column='date_breacket' value={ items.date_breacket ? (items.date_breacket) : '01.01.2019' } />
             <ItemInput className={ className } label="Срок службы" base={ items } value={ items.life_Time_breacket } editBase={ editItems } column='life_Time_breacket' />
           </div>
+          <center><h3>Опора</h3></center>
+          <div className={classNames(`${className}__content_box`)}>
+            <Butt className={ className } label="" base={ items } editBase={ editItems } column='opora' value={ items.opora } butt full text={["Наша", "Нет"]} />
+          </div>
           <center><h3>Кабельные линии</h3></center>
           <div className={classNames(`${className}__content_box`)}>
             <ItemInput className={ className } full={true} label="" base={ items } editBase={ editItems } column='line' value={ items.line } />
@@ -156,7 +177,7 @@ const InfoBox = props => {
           </div>
           <center><h3>Состояние</h3></center>
           <div className={classNames(`${className}__content_box`)}>
-            <Func className={ className } base={ items } editBase={ editItems } column='func' value={ items.func } uppData={ uppData } uppSvet={ fetchUppSvet } svet={ svet } />
+            <Func className={ className } base={ items } editBase={ editItems } column='func' value={ items.func } uppData={ uppDatas } uppSvet={ fetchUppSvet } svet={ svet } />
           </div>
         </div></> 
       )}
@@ -164,4 +185,4 @@ const InfoBox = props => {
   )
 }
 
-export default InfoBox;
+export default connect(({coup}) => ({coup: coup.items}), {...coupActions})(InfoBox);

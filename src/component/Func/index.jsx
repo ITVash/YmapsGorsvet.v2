@@ -15,7 +15,6 @@ const Func = ({ className, base, editBase, column, value, uppData, svet, uppSvet
       <Button type="primary" block onClick={ () => {
         uppData(base);
         uppSvet && svet && uppSvet(svet);
-        //editItems({});
         const wind = document.querySelector(`.${className}`);
         wind.classList.remove("open");
       }}>Сохранить</Button>

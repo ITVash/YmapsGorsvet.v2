@@ -3,13 +3,13 @@ import classNames from 'classnames';
 
 //import './style.scss';
 
-const Butt = ({ className, label, base, editBase, column, value }) => {
+const Butt = ({ className, label, base, editBase, column, value, butt, full, text }) => {
   return (
-    <div className={classNames(`${className}__content_box-item`)}>
+    <div className={classNames(`${className}__content_box-item`, {'full':full})}>
       <label htmlFor="">{ label }</label>
-      <span className={value ? "tr" : null}
+      <span className={ classNames(!butt && {'tr': value}, butt && {'but-item': butt}, butt && {'err': !value }) }
         onClick={ () => {editBase({...base, [column] : !value})}}
-      >{value ? "Есть" : "Нет"}</span>
+      >{value ? (text && text[0] || "Есть") : (text && text[1] || "Нет")}</span>
     </div>
   )
 }

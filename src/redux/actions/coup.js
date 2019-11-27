@@ -17,6 +17,12 @@ const actions = {
     type: 'GET_GURRENT_ID',
     payload: id
   }),
+  fetchAddCoup: coupData => dispatch => {
+    coups.addCoup(coupData)
+    .then(({data}) => {
+      dispatch(actions.addCoup(data));
+    });
+  },
   fetchCoup: () => dispatch => {
     coups.getAll().then(({ data }) => {
       dispatch(actions.getCoup(data));
@@ -25,7 +31,6 @@ const actions = {
   fetchUppCoup: coupData => ( dispatch, getState ) => {
     const { coup } = getState();
     const { currentID } = coup;
-    console.log('data', coupData);
     coups.uppCoup(currentID, coupData)
     .then(({data}) => {
       dispatch(actions.getUppCoup(data));

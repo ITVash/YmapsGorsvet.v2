@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-//axios.defaults.baseURL = 'https://vashsite.000webhostapp.com/api/';
-axios.defaults.baseURL = 'http://api.local/api/';
+axios.defaults.baseURL = 'https://vashsite.000webhostapp.com/public/api/';
+//axios.defaults.baseURL = 'http://api.local/api/';
 //axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Content-Type'] = 'application/json; charset=UTF-8';
 //axios.defaults.headers.common['Content-Type'] = 'multipart/form-data';

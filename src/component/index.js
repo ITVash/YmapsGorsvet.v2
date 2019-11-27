@@ -10,3 +10,6 @@ export { default as ButtPr } from './ButtPr';
 export { default as ItemData } from './ItemData';
 export { default as ItemText } from './ItemText';
 export { default as Func } from './Func';
+export { default as Menu } from './Menu';
+export { default as AdminMaps } from './AdminMap';
+export { default as AdminMenu } from './AdminMenu';
