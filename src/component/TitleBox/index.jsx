@@ -42,7 +42,7 @@ const TitleBox = ({ className, title, area, edit, column, base, editBase, coup }
           <h3>{ title[0] }</h3>
           <span>{ className === 'info-box' ? (area) : (
             <>
-              <span className="link-coup">{ base.coupTitle }</span>&nbsp;&nbsp; 
+              <span className="link-coup">{ title[1] &&  title[1] }</span>&nbsp;&nbsp; 
               { area }
             </>) }</span>
         </>

@@ -17,6 +17,21 @@ const actions = {
     type: 'GET_OPORA_ID',
     payload: id
   }),
+  addInfo: items => ({
+    type: 'GET_INFO',
+    payload: items
+  }),
+  infoCoup: id => ( dispatch, getState ) => {
+    const { coup } = getState();
+    const { items } = coup;
+    items.map( item => {
+      if ( item.id === id) {
+        const upp = { ...item, coupTitle: item.title, funcCoup: item.func };
+        dispatch(actions.addInfo(upp));
+      }
+      return items;
+    });
+  },
   fetchAddOpora: oporaData => dispatch => {
     oporas.addOpora(oporaData)
     .then(({ data }) => {

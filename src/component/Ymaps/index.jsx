@@ -23,7 +23,10 @@ const Ymaps = props => {
     fetchSvet, 
     svet,
     fetchUppSvet,
-    fetchAddSvet, deleteSvet } = props;
+    fetchAddSvet, 
+    deleteSvet,
+    info,
+    infoCoup } = props;
     const func = val => {
       if (val === true || val === 1) {
         return 1;
@@ -54,6 +57,7 @@ const Ymaps = props => {
           onClick={ () => {
             setSelectOpora(item);
             //coupInfo(item);
+            infoCoup(item.coupID);
             fetchSvet(item.id);
             //setSvets(svet);
             onSelectOpora(item.id);
@@ -66,7 +70,7 @@ const Ymaps = props => {
           }}
           options={{
             iconLayout: 'default#image',
-            iconImageHref: item.funcCoup === 1 ? `./img/${item.areaID}_opora_${func(item.func)}.png` : `./img/${item.areaID}_opora_0.png`,
+            iconImageHref: info.funcCoup === 1 ? `./img/${item.areaID}_opora_${func(item.func)}.png` : `./img/${item.areaID}_opora_0.png`,
             iconImageSize: [10, 10],
             iconImageOffset: [0, -15],
           }}
@@ -89,6 +93,7 @@ const Ymaps = props => {
             //setCoup={ setSelectCoup }
             //coup={ setCoup }
             //uppCoup={ uppCoup }
+            info={ info }
             onSelectCoup={ onSelectCoup }
             fetchUppSvet={ fetchUppSvet }
             fetchAddSvet={ fetchAddSvet }

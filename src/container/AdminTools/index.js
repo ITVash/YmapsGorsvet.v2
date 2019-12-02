@@ -13,7 +13,7 @@ const AdminTools = ({ coup, opora, fetchCoup, fetchUppOpora, fetchAddCoup, fetch
 
   const addObj = obj => {
     if (type === 'coup') {
-      const newCoup = [{
+      const newCoup = {
         title : 'ШУ',
         shethik : 'shethik',
         areaID : 0,
@@ -48,7 +48,7 @@ const AdminTools = ({ coup, opora, fetchCoup, fetchUppOpora, fetchAddCoup, fetch
         note : 'Примечание',
         lat : obj.lat,
         lng : obj.lng
-      }];
+      };
       fetchAddCoup(newCoup);
     } else if (type === 'opora') {
       const newOpora = [{

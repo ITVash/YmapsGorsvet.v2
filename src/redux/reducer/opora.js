@@ -1,10 +1,16 @@
 const initialState = {
-  items:[],
+  items: [],
+  info: [],
   currentID: null
 };
 
 export default (state = initialState, {type, payload}) => {
   switch (type) {
+    case 'GET_INFO':
+      return {
+        ...state,
+        info: payload
+      };
     case 'GET_OPORA':
       return {
         ...state,

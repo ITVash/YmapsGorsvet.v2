@@ -7,7 +7,7 @@ import { coupActions } from '../../redux/actions';
 import { TitleBox, ItemInput, Butt, ButtPr, ItemData, ItemText, Func } from '../../component';
 
 const InfoBox = props => {
-  const { className, items, editItems, uppData, svets, fetchUppSvet, fetchAddSvet, deleteSvet, edit, type, fetchCoup, coup } = props;
+  const { className, items, editItems, uppData, svets, fetchUppSvet, fetchAddSvet, deleteSvet, edit, type, fetchCoup, coup, info } = props;
   const area = {
     1: "Ворошиловский район",
     2: "Киевский район",
@@ -19,7 +19,6 @@ const InfoBox = props => {
     8: "Буденовский район",
     9: "Пролетарский райое"
   };
-  console.log('Что дает редактирование?', edit);
   const [ svet, setSvet ] = useState(svets);
   const addObj = obj => {
     fetchAddSvet(obj);
@@ -27,7 +26,6 @@ const InfoBox = props => {
   const uppDatas = obj => {
     uppData(obj);
     if ( edit ) {
-      console.log('Режим редактирования объектов');
       //uppData(obj);
       type(null);
       editItems(null);
@@ -57,7 +55,6 @@ const InfoBox = props => {
   useEffect(() => {
     fetchCoup()
   }, [ fetchCoup ]);
-  console.log('svet', svet);
   return (
     <div className={classNames(className)}>
       <span className={classNames(`${className}__close`)} onClick={
@@ -123,7 +120,7 @@ const InfoBox = props => {
           </div>
         </div></>
       ) : (
-        <><TitleBox edit={ edit } className={ className } title={[items.title, items.coupTitle]} area={area[items.areaID]} base={ items } editBase={ editItems } column={['title', 'areaID', 'coupID']} coup={ coup } />
+        <><TitleBox edit={ edit } className={ className } title={[items.title, info.coupTitle]} area={area[items.areaID]} base={ items } editBase={ editItems } column={['title', 'areaID', 'coupID']} coup={ coup } />
         <div className={classNames(`${className}__content`)}>
           <span className="add-svet"
             onClick = { () => {

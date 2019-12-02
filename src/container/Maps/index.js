@@ -5,7 +5,7 @@ import { coupActions, oporaActions, svetActions } from '../../redux/actions';
 import { Ymaps, SearchBox, Menu } from '../../component';
 
 const Maps = props => {
-  const { coup, fetchCoup, getCurrentID, fetchUppCoup, opora, fetchOpora, getOporaID, fetchUppOpora, svet, fetchSvet, fetchUppSvet, fetchAddSvet, deleteSvet } = props;
+  const { coup, fetchCoup, getCurrentID, fetchUppCoup, opora, fetchOpora, getOporaID, fetchUppOpora, svet, fetchSvet, fetchUppSvet, fetchAddSvet, deleteSvet, info, infoCoup } = props;
   const [ filterCoup, setFilterCoup ] = useState(Array.from(coup));
   const [ filterOpora, setFilterOpora ] = useState(Array.from(opora));
   const [ searchValue, setSearchValue ] = useState('');
@@ -52,9 +52,11 @@ const Maps = props => {
         fetchUppSvet={ fetchUppSvet }
         fetchAddSvet={ fetchAddSvet }
         deleteSvet={ deleteSvet }
+        info={ info }
+        infoCoup={ infoCoup }
       />
     </>
   )
 }
 
-export default connect(({ coup, opora, svet }) => ({ coup: coup.items, opora: opora.items, svet: svet.items }), { ...coupActions, ...oporaActions, ...svetActions })(Maps);
+export default connect(({ coup, opora, svet }) => ({ coup: coup.items, opora: opora.items, svet: svet.items, info: opora.info }), { ...coupActions, ...oporaActions, ...svetActions })(Maps);
