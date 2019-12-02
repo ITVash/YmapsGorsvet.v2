@@ -70,7 +70,7 @@ const Ymaps = props => {
           }}
           options={{
             iconLayout: 'default#image',
-            iconImageHref: info.funcCoup === 1 ? `./img/${item.areaID}_opora_${func(item.func)}.png` : `./img/${item.areaID}_opora_0.png`,
+            iconImageHref: info.funcCoup === 1 || true ? `./img/${item.areaID}_opora_${func(item.func)}.png` : `./img/${item.areaID}_opora_0.png`,
             iconImageSize: [10, 10],
             iconImageOffset: [0, -15],
           }}
