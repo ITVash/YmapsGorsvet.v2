@@ -51,7 +51,7 @@ const AdminTools = ({ coup, opora, fetchCoup, fetchUppOpora, fetchAddCoup, fetch
       };
       fetchAddCoup(newCoup);
     } else if (type === 'opora') {
-      const newOpora = [{
+      const newOpora = {
         func: false,
         opora: false,
         title: "Название",
@@ -65,7 +65,7 @@ const AdminTools = ({ coup, opora, fetchCoup, fetchUppOpora, fetchAddCoup, fetch
         note: 'Примечание',
         lat : obj.lat,
         lng : obj.lng 
-      }];
+      };
       fetchAddOpora(newOpora);
     }
   };

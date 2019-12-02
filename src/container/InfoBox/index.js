@@ -120,7 +120,7 @@ const InfoBox = props => {
           </div>
         </div></>
       ) : (
-        <><TitleBox edit={ edit } className={ className } title={[items.title, info.coupTitle]} area={area[items.areaID]} base={ items } editBase={ editItems } column={['title', 'areaID', 'coupID']} coup={ coup } />
+        <><TitleBox edit={ edit } className={ className } title={[items.title, info && info.coupTitle]} area={area[items.areaID]} base={ items } editBase={ editItems } column={['title', 'areaID', 'coupID']} coup={ coup } />
         <div className={classNames(`${className}__content`)}>
           <span className="add-svet"
             onClick = { () => {
