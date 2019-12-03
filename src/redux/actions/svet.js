@@ -30,12 +30,12 @@ const actions = {
     svets.addSvet(svetData)
     .then(({ data }) => {
       dispatch(actions.addSvet( data ));
-    }).catch(e => console.log('errAdd', e));
+    }).catch(e => console.error('errAdd', e));
   },
   deleteSvet: id => dispatch => {
     svets.deleteSvet(id)
     .then(() => dispatch(actions.delSvet(id)))
-    .catch(e => console.log('errDel', e));
+    .catch(e => console.error('errDel', e));
   },
   fetchUppSvet: svetData => ( dispatch, getState ) => {
     const { opora } = getState();

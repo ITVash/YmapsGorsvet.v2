@@ -35,8 +35,14 @@ const InfoBox = props => {
   };
   const removeSvet = id => {
     if (window.confirm("Вы действительно хотите удалить Светильник?")) {
+      const e = svet.filter(i => i.id !== id);
+      setSvet(e);
       deleteSvet(id);
     }
+  };
+  const uppServeSvet = obj => {
+    fetchUppSvet(obj);
+    setSvet(null);
   };
   const uppSvet = (id, obj) => {
     const upp = svet.map((item, idx) => {
@@ -61,6 +67,7 @@ const InfoBox = props => {
         () => {
           const wind = document.querySelector(`.${className}`);
           wind.classList.remove("open");
+          setSvet(null);
         }
       }><Icon type="close" /></span>
       {className === 'info-box' ? ( 
@@ -124,7 +131,7 @@ const InfoBox = props => {
         <div className={classNames(`${className}__content`)}>
           <span className="add-svet"
             onClick = { () => {
-              const obj = [{
+              const obj = {
                 oporaID: items.id,
                 postavchik_Svet: "Поставщик",
                 postavchik_Lamp: "Поставщик",
@@ -134,7 +141,7 @@ const InfoBox = props => {
                 life_Time_Svet: "Срок службы",
                 date_Svet: "01.01.2019",
                 date_Lamp: "01.01.2019",
-              }];
+              };
               addObj(obj);
             }}
           >+ Добавить Светильник</span>
@@ -174,7 +181,7 @@ const InfoBox = props => {
           </div>
           <center><h3>Состояние</h3></center>
           <div className={classNames(`${className}__content_box`)}>
-            <Func className={ className } base={ items } editBase={ editItems } column='func' value={ items.func } uppData={ uppDatas } uppSvet={ fetchUppSvet } svet={ svet } />
+            <Func className={ className } base={ items } editBase={ editItems } column='func' value={ items.func } uppData={ uppDatas } uppSvet={ uppServeSvet } svet={ svet } />
           </div>
         </div></> 
       )}
