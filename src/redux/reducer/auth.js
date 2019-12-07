@@ -1,6 +1,6 @@
 const initialState = {
   items: [],
-  auth: false
+  auth: !!window.localStorage.token
 };
 
 export default ( state = initialState, { type, payload } ) => {
@@ -9,7 +9,7 @@ export default ( state = initialState, { type, payload } ) => {
       return {
         ...state,
         items: payload,
-        auth: !state.auth
+        auth: true
       };
   
     default:

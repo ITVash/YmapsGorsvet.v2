@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Form,
   Input,
@@ -9,8 +10,10 @@ import md5 from 'md5';
 import './style.scss';
 
 const LoginForm = props => {
+  window.props = props;
   const { getFieldDecorator } = props.form;
   const { login } = props;
+  let history = useHistory();
   const handleSubmit = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
@@ -20,12 +23,14 @@ const LoginForm = props => {
           password: md5(values.password)
         };
         login(auth);
+        history.push('/');      
       } else console.error(`Ошибка авторизации: ${err}`);
     });
   };
+  //<h2>Войдите в систему!</h2>
   return (
     <Form className="login-form" onSubmit={ handleSubmit }>
-      <h2>Войдите в систему!</h2>
+      <center><img src="./logo192.png" alt="logo" /></center>
       <Form.Item label="Е-Майл">
           {getFieldDecorator('email', {
             rules: [
@@ -55,6 +60,7 @@ const LoginForm = props => {
             Войти
           </Button>
         </Form.Item>
+        <p>Powered by Vash & Zh3ka</p>
     </Form>
   )
 }
