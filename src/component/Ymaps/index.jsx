@@ -50,7 +50,7 @@ const Ymaps = props => {
             iconLayout: 'default#image',
             iconImageHref: `./img/${item.areaID}_control_${func(item.func)}.png`,
             iconImageSize: [20, 20],
-            iconImageOffset: [-10, -20],
+            iconImageOffset: [-10, -10],
           }}
         />)}
         {opora.map(item => <Placemark key={item.id} geometry={[item.lat, item.lng]}
@@ -72,7 +72,7 @@ const Ymaps = props => {
             iconLayout: 'default#image',
             iconImageHref: info.funcCoup === 1 || true ? `./img/${item.areaID}_opora_${func(item.func)}.png` : `./img/${item.areaID}_opora_0.png`,
             iconImageSize: [10, 10],
-            iconImageOffset: [-5, -10],
+            iconImageOffset: [-5, -5],
           }}
         />
         )}

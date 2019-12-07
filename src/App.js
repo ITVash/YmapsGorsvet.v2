@@ -1,12 +1,16 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { Maps, AdminTools } from './container';
+import { Maps, AdminTools, LoginForm } from './container';
 
 const App = props => {
+  const { isAuth, access } = props;
+  console.log('object', isAuth);
   return (
     <div className="App">
       <Switch>
+        <Route exact path="/login" component={ LoginForm } />
         <Route exact path="/" render={ () => <Maps {...props} /> } />
         <Route exact path="/admin" render={ () => <AdminTools {...props} /> } />
       </Switch>
@@ -14,4 +18,4 @@ const App = props => {
   );
 }
 
-export default App;
+export default connect( ({ auth }) => ({ isAuth: auth.auth, access: auth.access }) )(App);
