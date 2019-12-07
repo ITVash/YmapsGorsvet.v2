@@ -21,7 +21,7 @@ if ( token ) {
     localStorage.removeItem('token');
   }
 } else {
-  window.location.href = "/login";
+  //window.location.href = "/login";
   console.error('Нет токена, необходима авторизация!');
 }
 
