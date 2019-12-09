@@ -11,6 +11,12 @@ export default ( state = initialState, { type, payload } ) => {
         items: payload,
         auth: true
       };
+      case 'AUTH_LOGOUT':
+        return {
+          ...state,
+          items: [],
+          auth: payload
+        };
   
     default:
       return state;

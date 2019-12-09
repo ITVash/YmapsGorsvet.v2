@@ -4,10 +4,10 @@ import { authActions } from '../../redux/actions';
 import { LoginForm as LoginFormBase } from '../../component';
 
 const LoginForm = props => {
-  const { fetchLogin } = props;
+  const { fetchLogin, isLogin } = props;
   return (
-    <LoginFormBase login={ fetchLogin } />
+    <LoginFormBase isLogin={ isLogin } login={ fetchLogin } />
   )
 }
 
-export default connect( ({ auth })=>({ auth }), { ...authActions })(LoginForm);
+export default connect( ({ auth })=>({ isLogin: auth.auth }), { ...authActions })(LoginForm);

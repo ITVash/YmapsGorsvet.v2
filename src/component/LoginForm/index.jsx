@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import {
   Form,
   Input,
@@ -12,8 +12,9 @@ import './style.scss';
 const LoginForm = props => {
   window.props = props;
   const { getFieldDecorator } = props.form;
-  const { login } = props;
+  const { login, isLogin } = props;
   let history = useHistory();
+  console.log(`Доступ ${isLogin}`)
   const handleSubmit = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
@@ -23,15 +24,17 @@ const LoginForm = props => {
           password: md5(values.password)
         };
         login(auth);
-        history.push('/');      
+        if ( isLogin ) {
+          history.push('/');
+        }
       } else console.error(`Ошибка авторизации: ${err}`);
     });
   };
   //<h2>Войдите в систему!</h2>
   return (
     <Form className="login-form" onSubmit={ handleSubmit }>
-      <center><img src="./logo192.png" alt="logo" /></center>
-      <Form.Item label="Е-Майл">
+      <center><img src="./logo.png" alt="logo" /></center>
+      <Form.Item>
           {getFieldDecorator('email', {
             rules: [
               {
@@ -43,9 +46,9 @@ const LoginForm = props => {
                 message: 'Введите Е-Майл',
               },
             ],
-          })(<Input />)}
+          })(<Input placeholder="Е-Маил" />)}
         </Form.Item>
-        <Form.Item label="Пароль" hasFeedback>
+        <Form.Item hasFeedback>
           {getFieldDecorator('password', {
             rules: [
               {
@@ -53,14 +56,17 @@ const LoginForm = props => {
                 message: 'Введите пароль!',
               },
             ],
-          })(<Input.Password />)}
+          })(<Input.Password placeholder="Пароль" />)}
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Войти
+            Войти в систему
           </Button>
         </Form.Item>
-        <p>Powered by Vash & Zh3ka</p>
+        <p>Powered by <a href="https://vk.com/slayerakavash">Vash</a> & <a href="https://vk.com/the.zh3ka">Zh3ka</a></p>
+        {isLogin && (
+          <Redirect to="/" />
+        )}
     </Form>
   )
 }

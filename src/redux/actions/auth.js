@@ -5,6 +5,19 @@ const actions = {
     type: 'AUTH_LOGIN',
     payload: items
   }),
+  logout: items => ({
+    type: 'AUTH_LOGOUT',
+    payload: items
+  }),
+  fetchSignup : data => {
+    auth.signup(data)
+      .then(() => {
+        console.log('Пользователь добавлен');
+      })
+      .catch( err => {
+        console.log(`Ошибка при добавлении нового пользователя! ${ err }`);
+      });
+  },
   fetchAuth: id => dispatch => {
     auth.getAuth( id )
       .then( ({ data }) => {

@@ -19,10 +19,13 @@ if ( token ) {
     store.dispatch(authActions.fetchAuth( decodeTok.user_id ));
   } else {
     localStorage.removeItem('token');
+    store.dispatch(authActions.logout(false));
+    window.location.href = "/login";
   }
 } else {
+  store.dispatch(authActions.logout(false));
   //window.location.href = "/login";
-  console.error('Нет токена, необходима авторизация!');
+  console.log('Нет токена, необходима авторизация!');
 }
 
 

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button, Icon } from 'antd';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 //import { auth } from '../../api';
 import './style.scss';
 
-const Menu = () => {
+const Menu = props => {
+  const { access } = props;
   return (
     <>
       <div className="top-menu">
@@ -28,23 +30,20 @@ const Menu = () => {
           <h3>Администрирование</h3>
         </div>
         <div className="menu-box__item">
-        <Link to="/admin" ><Button>Редактор объектов</Button></Link>
+        <Link to="/admin" ><Button disabled={ access < 5 }>Редактор объектов</Button></Link>
         </div>
         <div className="menu-box__item">
-          <Button onClick={ () => {
-            
-            //auth.register(data);
-          }}>Добавить пользователя</Button>
+          <Link to="/register"><Button disabled={ access < 5 } >Добавить пользователя</Button></Link>
         </div>
         <div className="menu-box__item">
-          <Button>Пользователи</Button>
+          <Button disabled={ access < 5 }>Пользователи</Button>
         </div>
         <div className="menu-box__item">
-          <Button>Отчеты</Button>
+          <Button disabled={ access < 5 }>Отчеты</Button>
         </div>
       </div>
     </>
   )
 }
 
-export default Menu
+export default connect(({ auth }) => ({ access: auth.items.access }))(Menu);

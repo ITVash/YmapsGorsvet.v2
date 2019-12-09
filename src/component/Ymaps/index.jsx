@@ -26,7 +26,9 @@ const Ymaps = props => {
     fetchAddSvet, 
     deleteSvet,
     info,
-    infoCoup } = props;
+    infoCoup,
+    access
+  } = props;
     const func = val => {
       if (val === true || val === 1) {
         return 1;
@@ -81,7 +83,9 @@ const Ymaps = props => {
             className="info-box"
             items={ setCoup }
             editItems={ setSelectCoup }
-            uppData={ uppCoup } />
+            uppData={ uppCoup }
+            edit={ access >= 5 }
+            access={ access } />
         )}
         {setOpora && (
           <InfoBox
@@ -98,6 +102,8 @@ const Ymaps = props => {
             fetchUppSvet={ fetchUppSvet }
             fetchAddSvet={ fetchAddSvet }
             deleteSvet={ deleteSvet }
+            edit={ access >= 5 }
+            access={ access }
           />
         )}
       </Map>

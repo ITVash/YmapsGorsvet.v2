@@ -1,6 +1,7 @@
 export { default as Ymaps } from './Ymaps';
 export { default as SearchBox } from './SearchBox';
 export { default as LoginForm } from './LoginForm';
+export { default as RegisterForm } from './RegisterForm';
 
 export { default as TitleBox } from './TitleBox';
 export { default as ItemInput } from './ItemInput';
