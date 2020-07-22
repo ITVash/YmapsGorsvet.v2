@@ -41,10 +41,10 @@ const Maps = props => {
       onSearch();
     }
   }, [ coup, opora ]);
-  useEffect(() => {
+  /* useEffect(() => {
     fetchCoup();
     fetchOpora();
-  }, [ fetchCoup, fetchOpora ]);
+  }, [ fetchCoup, fetchOpora ]); */
   //<InfoBox className="info-box" />
   return (
     <>

@@ -1,11 +1,21 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
-import { Maps, AdminTools, LoginForm, RegisterForm } from './container';
+import { /* Maps, */ AdminTools, LoginForm, RegisterForm } from './container';
+import { Ymaps as Maps } from './component'
+import { coupActions, oporaActions } from './redux/actions'
 
 const App = props => {
   const { isAuth, access } = props;
+  const { fetchCoup } = coupActions
+  const { fetchOpora } = oporaActions
+  const dispatch = useDispatch()
+
+  React.useEffect(() => {
+    dispatch(fetchCoup())
+    dispatch(fetchOpora())
+  }, [])
   return (
     <div className="App">
       <Switch>

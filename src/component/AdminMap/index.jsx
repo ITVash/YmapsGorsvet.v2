@@ -4,7 +4,23 @@ import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import { InfoBox } from '../../container';
 
 const AdminMap = props => {
-  const { coup, opora, editCoup, editOpora, addObj, coupCurrentID, uppCoup, type, oporaCurrentID, uppOpora, svets, fetchUppSvet, fetchAddSvet, deleteSvet  } = props;
+  const {
+		coup,
+		opora,
+		editCoup,
+		editOpora,
+		addObj,
+		coupCurrentID,
+		uppCoup,
+		type,
+		oporaCurrentID,
+		uppOpora,
+		svets,
+		fetchUppSvet,
+		fetchAddSvet,
+    deleteSvet,
+    access
+	} = props;
   const mapData = {
     center: [48.015875, 37.801341],
     zoom: 12,
@@ -16,7 +32,6 @@ const AdminMap = props => {
           let coords = e.get('coords');
           let poson = {lat: coords[0], lng: coords[1]}
           addObj(poson);
-          //type === 'coup' ? editItems({...items, ID: coupID, lat: lat, lng: lng}) : type === 'opora' ? editOpora({...opora, ID: oporaID, lat: lat, lng: lng}) : setCoordinats({...coordinats, pos : poson})
         } }
       >
         { coup && (
@@ -57,6 +72,7 @@ const AdminMap = props => {
             uppData={ uppCoup }
             type={ type }
             edit
+            access={access}
           />
         )}
         {opora && (
@@ -71,6 +87,7 @@ const AdminMap = props => {
             fetchAddSvet={ fetchAddSvet }
             deleteSvet={ deleteSvet }
             edit
+            access={access}
           />
         )}
       </Map>

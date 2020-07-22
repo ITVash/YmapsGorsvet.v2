@@ -20,7 +20,7 @@ const Func = ({ className, base, editBase, column, value, uppData, svet, uppSvet
         uppSvet && svet && uppSvet(svet);
         const wind = document.querySelector(`.${className}`);
         wind.classList.remove("open");
-      }} disabled={access && access >= 2 ? false : true}>Сохранить</Button>
+      }} >Сохранить</Button>
   </div></>
   )
 }
