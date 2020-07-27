@@ -11,13 +11,15 @@ const mapData = {
 	zoom: 12,
 }
 const Ymaps = (props) => {
-	const { coups, oporas, svets, access, info } = useSelector(({ coup, opora, svet, auth }) => ({
-		coups: coup.items,
-    oporas: opora.items,
-    info: opora.info,
-    svets: svet.items,
-    access: auth.items.access
-	}))
+	const { coups, oporas, svets, access, info } = useSelector(
+		({ coup, opora, svet, auth }) => ({
+			coups: coup.items,
+			oporas: opora.items,
+			info: opora.info,
+			svets: svet.items,
+			access: auth.items.access,
+		}),
+	)
 	const [coup, setCoup] = React.useState(null)
 	const [opora, setOpora] = React.useState(null)
 	const dispatch = useDispatch()
@@ -29,76 +31,77 @@ const Ymaps = (props) => {
 	return (
 		<YMaps>
 			<Map defaultState={mapData} width='100%' height='100vh'>
-        <Clusterer
-          options={{
-            preset: 'islands#invertedVioletClusterIcons',
-            groupByCoordinates: false,
-            clusterDisableClickZoom: true,
-            clusterHideIconOnBalloonOpen: false,
-            geoObjectHideIconOnBalloonOpen: false,
-          }}
-        >
-          {coups.map((item) => (
-              <Placemark
-                key={item.id}
-                geometry={[item.lat, item.lng]}
-                onClick={() => {
-                  setCoup(item)
-                  dispatch(coupActions.getCurrentID(item.id))
-                  const Info = document.querySelector(".info-box")
-                  Info.classList.add("open")
-                }}
-                modules={["geoObject.addon.hint"]}
-                properties={{
-                  hintContent: `${item.title}`,
-                }}
-                options={{
-                  iconLayout: "default#image",
-                  iconImageHref: `./img/${item.areaID}_control_${func(
-                    item.func,
-                  )}.png`,
-                  iconImageSize: [20, 20],
-                  iconImageOffset: [-10, -10],
-                }}
-              />
-          ))}
-        </Clusterer>
-        <Clusterer
-          options={{
-            preset: 'islands#invertedVioletClusterIcons',
-            groupByCoordinates: false,
-            clusterDisableClickZoom: true,
-            clusterHideIconOnBalloonOpen: false,
-            geoObjectHideIconOnBalloonOpen: false,
-          }}
-        >
-          {oporas.map((item) => (
-              <Placemark
-                key={item.id}
-                geometry={[item.lat, item.lng]}
-                onClick={() => {
-                  setOpora(item)
-                  dispatch(oporaActions.infoCoup(item.coupID))							
-                  dispatch(svetActions.fetchSvet(item.id))
-                  const InfoOpora = document.querySelector(".info-opora")
-                  InfoOpora.classList.add("open")
-                }}
-                modules={["geoObject.addon.hint"]}
-                properties={{
-                  hintContent: `${item.title}`,
-                }}
-                options={{
-                  iconLayout: "default#image",
-                  iconImageHref:
-                    info.funcCoup === 1 || true
-                      ? `./img/${item.areaID}_opora_${func(item.func)}.png`
-                      : `./img/${item.areaID}_opora_0.png`,
-                  iconImageSize: [10, 10],
-                  iconImageOffset: [-5, -5],
-                }}
-              />
-              ))}
-        </Clusterer>
+				<Clusterer
+					options={{
+						preset: "islands#invertedVioletClusterIcons",
+						groupByCoordinates: false,
+						clusterDisableClickZoom: true,
+						clusterHideIconOnBalloonOpen: false,
+						geoObjectHideIconOnBalloonOpen: false,
+					}}
+				>
+					{coups.map((item) => (
+						<Placemark
+							key={item.id}
+							geometry={[item.lat, item.lng]}
+							onClick={() => {
+								setCoup(item)
+								dispatch(coupActions.getCurrentID(item.id))
+								const Info = document.querySelector(".info-box")
+								Info.classList.add("open")
+							}}
+							modules={["geoObject.addon.hint"]}
+							properties={{
+								hintContent: `${item.title}`,
+							}}
+							options={{
+								iconLayout: "default#image",
+								iconImageHref: `./img/${item.areaID}_control_${func(
+									item.func,
+								)}.png`,
+								iconImageSize: [20, 20],
+								iconImageOffset: [-10, -10],
+							}}
+						/>
+					))}
+				</Clusterer>
+				<Clusterer
+					options={{
+						preset: "islands#invertedVioletClusterIcons",
+						groupByCoordinates: false,
+						clusterDisableClickZoom: true,
+						clusterHideIconOnBalloonOpen: false,
+						geoObjectHideIconOnBalloonOpen: false,
+					}}
+				>
+					{oporas.map((item) => (
+						<Placemark
+							key={item.id}
+							geometry={[item.lat, item.lng]}
+							onClick={() => {
+								setOpora(item)
+								dispatch(oporaActions.getOporaID(item.id))
+								dispatch(oporaActions.infoCoup(item.coupID))
+								dispatch(svetActions.fetchSvet(item.id))
+								const InfoOpora = document.querySelector(".info-opora")
+								InfoOpora.classList.add("open")
+							}}
+							modules={["geoObject.addon.hint"]}
+							properties={{
+								hintContent: `${item.title}`,
+							}}
+							options={{
+								iconLayout: "default#image",
+								iconImageHref:
+									info.funcCoup === 1 || true
+										? `./img/${item.areaID}_opora_${func(item.func)}.png`
+										: `./img/${item.areaID}_opora_0.png`,
+								iconImageSize: [10, 10],
+								iconImageOffset: [-5, -5],
+							}}
+						/>
+					))}
+				</Clusterer>
 				{coup && (
 					<InfoBox
 						className='info-box'
